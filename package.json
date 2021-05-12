@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/SimonPannek/bbb-bot/issues"
   },
-  "homepage": "https://github.com/SimonPannek/bbb-bot#readme"
+  "homepage": "https://github.com/SimonPannek/bbb-bot#readme",
+  "dependencies": {
+    "selenium-webdriver": "^4.0.0-beta.3"
+  }
 }

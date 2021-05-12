@@ -33,28 +33,31 @@ module.exports = async room => {
 
         let lastMessage = "*";
 
-        // Loop and listen for new messages
-        while (true) {
+        // Loop while chat is still active
+        while (await driver.findElement(By.xpath("//div[@id = 'chat-messages']"))) {
             try {
+                // Get container surrounding the message
                 const messageContainer = await driver
                     .wait(until.elementLocated(By.xpath(getMessageSelector(lastMessage))), messageTimeout);
 
+                // Parse information of the message
                 const message = await messageContainer.getText();
                 const split = message.split("\n");
                 const content = split.slice(-1).pop();
 
+                // Give the information to the command handler
                 await commandHandler(room, split[0], content);
 
+                // Save first part of the message
                 lastMessage = content.split("\n")[0];
             } catch (ignored) {
-                // Probably a timeout error
-                console.log(ignored);
+                // Probably a timeout error, because no new message was found
+                //console.log(ignored);
             }
-
-            // TODO: Check if room was closed
         }
-    } catch (error) {
-        console.log("An error occurred: ", error);
+    } catch (ignored) {
+        // Probably an invalid room
+        //console.log("An error occurred: ", ignored);
     } finally {
         await driver.quit();
     }

@@ -1,0 +1,20 @@
+{
+  "name": "bbb-bot",
+  "version": "1.0.0",
+  "description": "Simple bot for Big Blue Button using Selenium",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SimonPannek/bbb-bot.git"
+  },
+  "author": "Simon Pannek",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SimonPannek/bbb-bot/issues"
+  },
+  "homepage": "https://github.com/SimonPannek/bbb-bot#readme"
+}

@@ -1,5 +1,6 @@
 {
   "name": "BBB-Bot",
+  "prefix": "!",
   "rooms": ["https://bbb.example.de/room-1"],
   "timeout": 5000,
   "messageTimeout": 30000

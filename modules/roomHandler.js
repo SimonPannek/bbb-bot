@@ -45,11 +45,30 @@ module.exports = async room => {
                 const split = message.split("\n");
                 const content = split.slice(-1).pop();
 
-                // Give the information to the command handler
-                await commandHandler(room, split[0], content);
-
                 // Save first part of the message
                 lastMessage = content.split("\n")[0];
+
+                if (split[0] === name) {
+                    // Ignore own messages
+                    continue;
+                }
+
+                // Give the information to the command handler
+                const response = await commandHandler(room, split[0], content);
+
+                if (!response) {
+                    // No response to send
+                    continue;
+                }
+
+                // Send response
+                const responseInput = await driver.findElement(By.xpath("//textarea[@id = 'message-input']"));
+                if (!responseInput) {
+                    // Could not find response input
+                    break;
+                }
+
+                await responseInput.sendKeys(response, Key.RETURN);
             } catch (ignored) {
                 // Probably a timeout error, because no new message was found
                 //console.log(ignored);

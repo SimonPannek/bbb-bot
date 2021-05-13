@@ -2,7 +2,6 @@ const {rooms} = require("./config.json");
 const roomHandler = require("./modules/roomHandler");
 
 (async function main() {
-    // TODO: Support multiple sessions
     let handles = [];
 
     // Add task for each room

@@ -1,12 +1,12 @@
-const {Builder, By, Key, until} = require('selenium-webdriver');
+const chrome = require("selenium-webdriver/chrome");
+const {Builder, By, Key, until} = require("selenium-webdriver");
 
 const {name, timeout, messageTimeout} = require("../config.json");
 const commandHandler = require("./commandHandler");
 
-//const messagesWrapper = "//div[starts-with(@class, 'chat--')]//div[starts-with(@class, 'messageListWrapper--')]";
-
 module.exports = async room => {
-    const driver = await new Builder().forBrowser('chrome').build();
+    const driver = await new Builder().forBrowser('chrome')
+        .setChromeOptions(new chrome.Options().headless()).build();
 
     try {
         // Connect to room
@@ -30,6 +30,8 @@ module.exports = async room => {
 
         // Close audio modal
         modal.click();
+
+        console.log(`Connected to room ${room}.`)
 
         let lastMessage = "*";
 
@@ -77,8 +79,6 @@ module.exports = async room => {
     } catch (ignored) {
         // Probably an invalid room
         //console.log("An error occurred: ", ignored);
-    } finally {
-        await driver.quit();
     }
 };
 

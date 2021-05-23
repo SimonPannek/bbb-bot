@@ -3,6 +3,7 @@ const roomHandler = require("./modules/roomHandler");
 
 (async function main() {
     let handles = [];
+    const handles = [];
 
     // Add task for each room
     for (let room of rooms) {

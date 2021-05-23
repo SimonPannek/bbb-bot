@@ -1,12 +1,9 @@
-const chrome = require("selenium-webdriver/firefox");
 const { Builder, By, Key, until } = require("selenium-webdriver");
 
 const { name, timeout, messageTimeout } = require("../config.json");
 const commandHandler = require("./commandHandler");
 
 module.exports = async room => {
-    const driver = await new Builder().forBrowser('firefox')
-        .setFirefoxOptions(new chrome.Options().headless()).build();
 
     try {
         // Connect to room
@@ -33,7 +30,7 @@ module.exports = async room => {
         // Close audio modal
         modal.click();
 
-        // Find test input
+        // Find text input
         const responseInput = await driver.findElement(By.xpath("//textarea[@id = 'message-input']"));
         if (!responseInput) {
             console.error("unable to find text input field");

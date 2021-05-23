@@ -1,9 +1,12 @@
+const chrome = require("selenium-webdriver/chrome");
 const { Builder, By, Key, until } = require("selenium-webdriver");
 
 const { name, timeout, messageTimeout } = require("../config.json");
 const commandHandler = require("./commandHandler");
 
 module.exports = async room => {
+    const driver = await new Builder().forBrowser('chrome')
+        .setChromeOptions(new chrome.Options().headless()).build();
 
     try {
         // Connect to room

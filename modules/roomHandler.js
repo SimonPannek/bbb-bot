@@ -1,12 +1,12 @@
-const chrome = require("selenium-webdriver/chrome");
-const {Builder, By, Key, until} = require("selenium-webdriver");
+const chrome = require("selenium-webdriver/firefox");
+const { Builder, By, Key, until } = require("selenium-webdriver");
 
-const {name, timeout, messageTimeout} = require("../config.json");
+const { name, timeout, messageTimeout } = require("../config.json");
 const commandHandler = require("./commandHandler");
 
 module.exports = async room => {
-    const driver = await new Builder().forBrowser('chrome')
-        .setChromeOptions(new chrome.Options().headless()).build();
+    const driver = await new Builder().forBrowser('firefox')
+        .setFirefoxOptions(new chrome.Options().headless()).build();
 
     try {
         // Connect to room
@@ -15,6 +15,7 @@ module.exports = async room => {
         // Find name input
         const input = await driver.findElement(By.xpath("//input[@required = 'required']"));
         if (!input) {
+            console.error("no input found.");
             return;
         }
 
@@ -25,11 +26,20 @@ module.exports = async room => {
         const modal = await driver
             .wait(until.elementLocated(By.xpath("//button[@aria-label = 'Close Join audio modal']")), timeout);
         if (!modal) {
+            console.error("no modal found.");
             return;
         }
 
         // Close audio modal
         modal.click();
+
+        // Find test input
+        const responseInput = await driver.findElement(By.xpath("//textarea[@id = 'message-input']"));
+        if (!responseInput) {
+            console.error("unable to find text input field");
+            return;
+        }
+
 
         console.log(`Connected to room ${room}.`)
 
@@ -63,22 +73,17 @@ module.exports = async room => {
                     continue;
                 }
 
-                // Send response
-                const responseInput = await driver.findElement(By.xpath("//textarea[@id = 'message-input']"));
-                if (!responseInput) {
-                    // Could not find response input
-                    break;
-                }
 
+                // Send response
                 await responseInput.sendKeys(response, Key.RETURN);
             } catch (ignored) {
                 // Probably a timeout error, because no new message was found
-                //console.log(ignored);
+                console.error(ignored);
             }
         }
     } catch (ignored) {
         // Probably an invalid room
-        //console.log("An error occurred: ", ignored);
+        console.error("An error occurred: ", ignored);
     }
 };
 

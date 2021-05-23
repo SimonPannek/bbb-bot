@@ -33,7 +33,6 @@ module.exports = async room => {
         // Close audio modal
         modal.click();
 
-<<<<<<< HEAD
         // Find test input
         const responseInput = await driver.findElement(By.xpath("//textarea[@id = 'message-input']"));
         if (!responseInput) {
@@ -43,9 +42,6 @@ module.exports = async room => {
 
 
         console.log(`Connected to room ${room}.`)
-=======
-        console.log(`Connected to room ${room}.`);
->>>>>>> origin/master
 
         let lastMessage = "*";
 

@@ -21,7 +21,13 @@ const exams = [
 		date: new Date('2021-07-27'),
 		name: 'endterm',
 		registration: null,
-		grading: '90 points (+ bonus points you have earned)',
+		grading: '90 points (+ up to 15 bonus points you have earned)',
+	},
+	{
+		date: null,
+		name: 'retake',
+		registration: null,
+		grading: '90 points (+ up to 15 bonus points you have earned)',
 	}];
 
 module.exports = {

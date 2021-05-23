@@ -31,7 +31,7 @@ module.exports = async room => {
         // Close audio modal
         modal.click();
 
-        console.log(`Connected to room ${room}.`)
+        console.log(`Connected to room ${room}.`);
 
         let lastMessage = "*";
 

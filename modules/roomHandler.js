@@ -15,6 +15,7 @@ module.exports = async room => {
         // Find name input
         const input = await driver.findElement(By.xpath("//input[@required = 'required']"));
         if (!input) {
+            console.error("Unable to find the name input field.");
             return;
         }
 
@@ -25,11 +26,19 @@ module.exports = async room => {
         const modal = await driver
             .wait(until.elementLocated(By.xpath("//button[@aria-label = 'Close Join audio modal']")), timeout);
         if (!modal) {
+            console.error("Unable to find the close audio modal prompt.");
             return;
         }
 
         // Close audio modal
         modal.click();
+
+        // Find response input
+        const responseInput = await driver.findElement(By.xpath("//textarea[@id = 'message-input']"));
+        if (!responseInput) {
+            console.error("Unable to find the response input field.");
+            return;
+        }
 
         console.log(`Connected to room ${room}.`);
 
@@ -64,21 +73,14 @@ module.exports = async room => {
                 }
 
                 // Send response
-                const responseInput = await driver.findElement(By.xpath("//textarea[@id = 'message-input']"));
-                if (!responseInput) {
-                    // Could not find response input
-                    break;
-                }
-
                 await responseInput.sendKeys(response, Key.RETURN);
             } catch (ignored) {
-                // Probably a timeout error, because no new message was found
-                //console.log(ignored);
+                // Catch timeout error, because no new message was found
             }
         }
     } catch (ignored) {
-        // Probably an invalid room
-        //console.log("An error occurred: ", ignored);
+        // Invalid room or connection was closed
+        console.error("Connection to room was closed.")
     }
 };
 

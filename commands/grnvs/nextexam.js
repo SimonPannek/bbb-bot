@@ -12,7 +12,7 @@ const exams = [
         grading: '10 bonus points',
     },
     {
-        date: null,
+        date: new Date('2021-07-05'),
         name: 'Quiz 2',
         registration: null,
         grading: '2 bonus points',

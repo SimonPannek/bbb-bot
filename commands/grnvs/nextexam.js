@@ -24,7 +24,7 @@ const exams = [
         grading: '90 points (+ up to 15 bonus points you have earned)',
     },
     {
-        date: null,
+        date: new Date('2021-10-15'),
         name: 'retake',
         registration: null,
         grading: '90 points (+ up to 15 bonus points you have earned)',
